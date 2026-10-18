@@ -97,6 +97,99 @@ a { color: var(--blue); word-break: break-word; }
   .hero, .panel { padding: 18px 20px; }
   .hero h1 { font-size: 1.8rem; }
 }
+/* SC2-style type: self-hosted SIL OFL fonts (license: ofl_gBj1M2.txt). Orbitron for headings, Exo 2 for body. */
+@font-face {
+  font-family: "Orbitron";
+  src: url("font_hp4x1b.woff2") format("woff2");
+  font-weight: 400 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Exo 2";
+  src: url("font_shAe8C.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+body { font-family: "Exo 2", "Segoe UI", system-ui, -apple-system, sans-serif; font-size: 16.5px; }
+.hero h1, .panel h2, .badge, .topnav a {
+  font-family: "Orbitron", "Eurostile", "Bank Gothic", ui-monospace, "Consolas", monospace;
+}
+.hero h1 { font-weight: 800; letter-spacing: 0.06em; font-size: 1.3rem; text-shadow: 0 0 10px rgba(111,195,255,0.35), 0 2px 0 #000; }
+.panel h2 { font-weight: 700; font-size: 0.95rem; text-shadow: 0 0 8px rgba(255,154,60,0.35); }
+.badge { font-weight: 700; clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px); }
+.topnav a { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+@media (min-width: 640px) { .hero h1 { font-size: 1.7rem; } .panel h2 { font-size: 1rem; } }
+
+/* Metal frames: beveled brushed steel, rivets, corner brackets, accent glow. Pure CSS. */
+.hero, .panel {
+  position: relative;
+  border: 1px solid #6b747f;
+  border-left: 4px solid var(--gold);
+  border-radius: 3px;
+  background:
+    radial-gradient(circle at 50% 50%, #d7dde4 0 1.2px, #6d7580 1.8px, #23272c 2.8px, transparent 3.4px) left 7px top 7px / 8px 8px no-repeat,
+    radial-gradient(circle at 50% 50%, #d7dde4 0 1.2px, #6d7580 1.8px, #23272c 2.8px, transparent 3.4px) right 7px top 7px / 8px 8px no-repeat,
+    radial-gradient(circle at 50% 50%, #d7dde4 0 1.2px, #6d7580 1.8px, #23272c 2.8px, transparent 3.4px) left 7px bottom 7px / 8px 8px no-repeat,
+    radial-gradient(circle at 50% 50%, #d7dde4 0 1.2px, #6d7580 1.8px, #23272c 2.8px, transparent 3.4px) right 7px bottom 7px / 8px 8px no-repeat,
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.022) 0 1px, rgba(0,0,0,0.04) 1px 2px, transparent 2px 4px),
+    linear-gradient(180deg, rgba(62,69,78,0.94) 0%, rgba(30,34,39,0.94) 45%, rgba(20,23,27,0.95) 100%);
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,0.22),
+    inset -1px -1px 0 rgba(0,0,0,0.75),
+    inset 0 0 0 4px rgba(18,20,24,0.55),
+    inset 0 0 0 5px rgba(255,255,255,0.06),
+    0 0 0 1px #0b0c0e,
+    0 0 0 3px #3f464f,
+    0 0 0 4px #0b0c0e,
+    0 0 16px 2px rgba(255,140,60,0.22),
+    0 10px 26px rgba(0,0,0,0.55);
+  margin-bottom: 18px;
+}
+.hero {
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,0.25),
+    inset -1px -1px 0 rgba(0,0,0,0.75),
+    inset 0 0 0 4px rgba(18,20,24,0.55),
+    inset 0 0 0 5px rgba(255,255,255,0.06),
+    0 0 0 1px #0b0c0e,
+    0 0 0 3px #4a525c,
+    0 0 0 4px #0b0c0e,
+    0 0 18px 3px rgba(111,195,255,0.28),
+    0 10px 26px rgba(0,0,0,0.55);
+}
+.hero::before, .hero::after, .panel::before, .panel::after {
+  content: ""; position: absolute; width: 18px; height: 18px; pointer-events: none;
+  border: 0 solid var(--gold);
+  filter: drop-shadow(0 0 3px rgba(255,154,60,0.7));
+}
+.hero::before, .panel::before { top: -6px; right: -6px; border-top-width: 3px; border-right-width: 3px; }
+.hero::after, .panel::after { bottom: -6px; right: -6px; border-bottom-width: 3px; border-right-width: 3px; }
+.hero::before, .hero::after { border-color: var(--blue); filter: drop-shadow(0 0 3px rgba(111,195,255,0.8)); }
+.wrap { padding-top: 26px; }
+/* Viewport frame: thin, fixed, never blocks clicks. */
+html::before {
+  content: ""; position: fixed; inset: 0; z-index: 50; pointer-events: none;
+  border: 4px solid transparent;
+  border-image: linear-gradient(135deg, #a8b1bb 0%, #3a4048 22%, #8b949e 50%, #2a2f36 78%, #9aa3ad 100%) 1;
+  box-shadow: inset 0 0 0 1px rgba(255,154,60,0.55), inset 0 0 14px rgba(255,140,60,0.18), inset 0 0 0 2px rgba(0,0,0,0.6);
+}
+html::after {
+  content: ""; position: fixed; inset: 0; z-index: 51; pointer-events: none;
+  background:
+    linear-gradient(var(--gold), var(--gold)) left 4px top 4px / 22px 3px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) left 4px top 4px / 3px 22px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right 4px top 4px / 22px 3px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right 4px top 4px / 3px 22px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) left 4px bottom 4px / 22px 3px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) left 4px bottom 4px / 3px 22px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right 4px bottom 4px / 22px 3px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right 4px bottom 4px / 3px 22px no-repeat;
+  opacity: 0.9;
+}
+body::before { top: 4px; left: 4px; right: 4px; height: 6px; }
+@media (min-width: 640px) {
+  html::before { border-width: 7px; }
+  body::before { top: 7px; left: 7px; right: 7px; }
+  html::after { background-position: left 7px top 7px, left 7px top 7px, right 7px top 7px, right 7px top 7px, left 7px bottom 7px, left 7px bottom 7px, right 7px bottom 7px, right 7px bottom 7px; }
+}
 /* Cinematic background video; the CSS background above stays as the fallback. */
 .bgvid {
   position: fixed; inset: 0;
