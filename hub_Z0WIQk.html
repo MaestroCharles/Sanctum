@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sanctum</title>
+<!-- Security header: keep all of it. 5 robots tags + 3 no-cache tags. -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="google-extended" content="noindex, nofollow">
+<meta name="gptbot" content="noindex, nofollow">
+<meta name="CCBot" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- No tracking code. No outside scripts, fonts or images. -->
+<style>
+:root {
+  --bg: #0f1218;
+  --panel: rgba(28, 34, 44, 0.92);
+  --border: rgba(255,255,255,0.12);
+  --text: #f2f4f7;
+  --muted: #a8b0bc;
+  --gold: #f0b429;
+  --blue: #5aa9e6;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: radial-gradient(900px 480px at 10% -10%, #1a2740 0%, var(--bg) 55%);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+  font-size: 16px;
+}
+a { color: var(--blue); word-break: break-word; }
+.wrap { max-width: 920px; margin: 0 auto; padding: 14px 14px 64px; overflow-x: hidden; }
+.hero, .panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.hero h1 { margin: 0 0 8px; font-size: 1.35rem; line-height: 1.25; }
+.hero p { margin: 0; color: var(--muted); font-size: 0.95em; }
+.badge {
+  display: inline-block; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: #111; background: var(--gold);
+  border-radius: 999px; padding: 4px 10px; margin-bottom: 10px;
+}
+.seats { list-style: none; margin: 0; padding: 0; }
+.seats li { margin: 0 0 10px; }
+.seats a {
+  display: flex; align-items: center; min-height: 44px;
+  padding: 12px 14px; background: var(--panel);
+  border: 1px solid var(--border); border-radius: 14px;
+  text-decoration: none; color: var(--text);
+}
+.seats a:hover { border-color: var(--gold); color: var(--gold); }
+.muted { color: var(--muted); font-size: 0.92em; }
+.foot { margin-top: 20px; font-size: 0.82em; color: var(--muted); }
+@media (min-width: 640px) {
+  .wrap { padding: 20px 18px 48px; }
+  .hero, .panel { padding: 18px 20px; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Hub. Never rename to index.html. -->
+    <header class="hero">
+      <div class="badge">Standby</div>
+      <h1>Sanctum</h1>
+      <p>Map of bot desks. Each desk has an opaque address. Role and links only.</p>
+    </header>
+    <ul class="seats">
+      <!-- One line per bot Brian has OK'd. Opaque paths only. -->
+    </ul>
+    <p class="foot">Unlisted - noindex - share-by-URL only. Owner: Brian.</p>
+  </div>
+  <script>
+  window.onpageshow = function (e) { if (e.persisted) { window.location.reload(); } };
+  </script>
+</body>
+</html>
