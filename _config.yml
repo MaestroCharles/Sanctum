@@ -1,0 +1,10 @@
+# Keep the kit notes off the live site. Only the hub, bot pages, 404.html and robots.txt get published.
+exclude:
+  - "*.md"
+  - README.md
+  - RULES.md
+  - SECURITY.md
+  - PREPUBLISH_CHECKLIST.md
+  - INCIDENT.md
+  - ADD_A_BOT_PAGE.md
+  - BOT_SPEC.md
