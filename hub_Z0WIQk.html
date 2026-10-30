@@ -16,74 +16,127 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- No tracking code. No outside scripts, fonts or images. -->
 <style>
+/* Self-hosted SIL OFL fonts (license: hubassets_KA8vXS/ofl_QanxJl.txt). Orbitron for headings, Exo 2 for body. */
+@font-face { font-family: "Orbitron"; src: url("hubassets_KA8vXS/font_48kWb3.woff2") format("woff2"); font-weight: 400 900; font-display: swap; }
+@font-face { font-family: "Exo 2"; src: url("hubassets_KA8vXS/font_A13Ila.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
 :root {
-  --bg: #0f1218;
-  --panel: rgba(28, 34, 44, 0.92);
-  --border: rgba(255,255,255,0.12);
-  --text: #f2f4f7;
-  --muted: #a8b0bc;
-  --gold: #f0b429;
-  --blue: #5aa9e6;
+  --amber: #ffad45; --cyan: #6fe6f2; --green: #86e39a; --text: #eef2f5; --muted: #aeb8c2;
+  --steel1: rgba(52,60,70,0.93); --steel2: rgba(16,20,25,0.95); --edge: #5e6b78;
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
+/* Background: original cavern still as the fallback (no video, or reduced motion). */
 body {
-  margin: 0;
-  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-  background: radial-gradient(900px 480px at 10% -10%, #1a2740 0%, var(--bg) 55%);
-  color: var(--text);
-  min-height: 100vh;
-  line-height: 1.5;
-  font-size: 16px;
+  margin: 0; min-height: 100vh; color: var(--text);
+  background-color: #0b0e12;
+  background-image: url('hubassets_KA8vXS/poster_MKGQM0.jpg'), linear-gradient(180deg, #161c23 0%, #0b0e12 60%, #120f0b 100%);
+  background-size: cover; background-position: 74% 0%; background-repeat: no-repeat; background-attachment: fixed;
+  font-family: "Exo 2", "Segoe UI", system-ui, sans-serif; font-size: 16.5px; line-height: 1.5;
 }
-a { color: var(--blue); word-break: break-word; }
-.wrap { max-width: 920px; margin: 0 auto; padding: 14px 14px 64px; overflow-x: hidden; }
-.hero, .panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 14px;
+/* Cinematic background video, same pattern as Tychus's page. */
+.bgvid { position: fixed; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 74% 0%; z-index: -2; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .bgvid { display: none; } }
+/* Light overlay: a soft edge vignette only. The panels carry their own backing for readability. */
+.shade {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 85% 80% at 60% 40%, rgba(8,11,15,0) 55%, rgba(8,11,15,0.5) 100%),
+    linear-gradient(180deg, rgba(8,11,15,0) 70%, rgba(8,11,15,0.35) 100%);
 }
-.hero h1 { margin: 0 0 8px; font-size: 1.35rem; line-height: 1.25; }
-.hero p { margin: 0; color: var(--muted); font-size: 0.95em; }
-.badge {
-  display: inline-block; font-size: 0.7rem; font-weight: 700;
-  letter-spacing: 0.04em; text-transform: uppercase;
-  color: #111; background: var(--gold);
-  border-radius: 999px; padding: 4px 10px; margin-bottom: 10px;
+body::before {
+  content: ""; position: fixed; left: 0; right: 0; top: 0; height: 8px; z-index: 5;
+  background: repeating-linear-gradient(135deg, var(--amber) 0 14px, #111 14px 28px); opacity: 0.85;
 }
-.seats { list-style: none; margin: 0; padding: 0; }
-.seats li { margin: 0 0 10px; }
-.seats a {
-  display: flex; align-items: center; min-height: 44px;
-  padding: 12px 14px; background: var(--panel);
-  border: 1px solid var(--border); border-radius: 14px;
-  text-decoration: none; color: var(--text);
+a { color: var(--amber); }
+/* Panel stack sits low so the spire and its cyan beam show above it. */
+.wrap { max-width: 1040px; margin: 0 auto; padding: 18vh 16px 48px; }
+@media (min-width: 820px) and (min-height: 560px) { .wrap { padding-top: 36vh; } }
+h1, h2, .badge, .tag, .roster a { font-family: "Orbitron", "Eurostile", ui-monospace, monospace; }
+.frame {
+  position: relative; padding: 20px 22px; margin-bottom: 18px;
+  border: 1px solid var(--edge); border-left: 4px solid var(--amber); border-radius: 3px;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  background:
+    radial-gradient(circle, #dde4ea 0 1.2px, #6f7a86 1.8px, #1d2228 2.8px, transparent 3.4px) left 7px top 7px / 8px 8px no-repeat,
+    radial-gradient(circle, #dde4ea 0 1.2px, #6f7a86 1.8px, #1d2228 2.8px, transparent 3.4px) right 7px top 7px / 8px 8px no-repeat,
+    radial-gradient(circle, #dde4ea 0 1.2px, #6f7a86 1.8px, #1d2228 2.8px, transparent 3.4px) left 7px bottom 7px / 8px 8px no-repeat,
+    radial-gradient(circle, #dde4ea 0 1.2px, #6f7a86 1.8px, #1d2228 2.8px, transparent 3.4px) right 7px bottom 7px / 8px 8px no-repeat,
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.022) 0 1px, rgba(0,0,0,0.04) 1px 2px, transparent 2px 4px),
+    linear-gradient(180deg, var(--steel1) 0%, var(--steel2) 100%);
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.2), inset -1px -1px 0 rgba(0,0,0,0.75),
+    0 0 0 1px #0a0d10, 0 0 0 3px #3c4550, 0 0 0 4px #0a0d10,
+    0 0 18px 2px rgba(111,230,242,0.16), 0 12px 28px rgba(0,0,0,0.6);
 }
-.seats a:hover { border-color: var(--gold); color: var(--gold); }
-.muted { color: var(--muted); font-size: 0.92em; }
-.foot { margin-top: 20px; font-size: 0.82em; color: var(--muted); }
-@media (min-width: 640px) {
-  .wrap { padding: 20px 18px 48px; }
-  .hero, .panel { padding: 18px 20px; }
-  .hero h1 { font-size: 1.55rem; }
+.frame::after {
+  content: ""; position: absolute; top: -6px; right: -6px; width: 18px; height: 18px;
+  border-top: 3px solid var(--cyan); border-right: 3px solid var(--cyan);
+  filter: drop-shadow(0 0 3px rgba(111,230,242,0.85));
 }
+.console { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.console h1 { margin: 0; font-size: 1.9rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+  text-shadow: 0 0 12px rgba(111,230,242,0.45), 0 2px 0 #000; }
+.tag { margin: 4px 0 0; font-size: 0.72rem; letter-spacing: 0.22em; color: var(--cyan); text-transform: uppercase; opacity: 0.85; }
+.badge { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #111; background: var(--amber); padding: 5px 12px;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px); }
+.lamp { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan); margin-right: 8px; vertical-align: middle; }
+.grid { display: grid; grid-template-columns: 1fr; gap: 0 18px; }
+@media (min-width: 820px) { .grid { grid-template-columns: 2fr 1fr; } }
+h2 { margin: 0 0 12px; font-size: 0.95rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber);
+  text-shadow: 0 0 8px rgba(255,173,69,0.35); }
+.roster { list-style: none; margin: 0; padding: 0; }
+.roster li { margin: 0 0 10px; }
+.roster a {
+  display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 14px;
+  text-decoration: none; color: var(--text); font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase;
+  background: linear-gradient(90deg, rgba(60,72,86,0.55), rgba(12,15,19,0.78));
+  border: 1px solid rgba(111,230,242,0.22); border-radius: 2px;
+}
+.roster a::before {
+  content: ">>"; flex: 0 0 44px; height: 44px; display: grid; place-items: center;
+  font-size: 0.85rem; font-weight: 800; color: #111; background: var(--cyan);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+.roster a[href^="tychus_"]::before { content: "TF"; background: var(--amber); }
+.roster a[href^="morpheus_"]::before { content: "MO"; background: var(--green); }
+.roster a small { display: block; font-family: "Exo 2", sans-serif; text-transform: none; letter-spacing: 0;
+  font-size: 0.85rem; color: var(--muted); }
+.roster a:hover, .roster a:focus { border-color: var(--cyan); box-shadow: 0 0 14px rgba(111,230,242,0.35); }
+.stat { margin: 0 0 10px; color: var(--muted); font-size: 0.92rem; }
+.stat b { color: var(--text); font-weight: 600; }
+.foot { display: inline-block; margin-top: 4px; padding: 4px 10px; font-size: 0.82em; color: var(--muted); background: rgba(10,13,17,0.78); border-radius: 2px; }
+@media (max-width: 560px) { .wrap { padding-top: 22vh; } .console h1 { font-size: 1.5rem; } .frame { padding: 18px 16px; } }
 </style>
 </head>
 <body>
+  <video class="bgvid" autoplay muted loop playsinline preload="auto" aria-hidden="true" poster="hubassets_KA8vXS/poster_MKGQM0.jpg"><source src="hubassets_KA8vXS/bg_PV3p7P.mp4" type="video/mp4"></video>
+  <div class="shade" aria-hidden="true"></div>
   <div class="wrap">
     <!-- Hub. Never rename to index.html. -->
-    <header class="hero">
+    <header class="frame console">
+      <div>
+        <h1>Sanctum</h1>
+        <p class="tag">Engineering level // bot command console</p>
+      </div>
       <div class="badge">Standby</div>
-      <h1>Sanctum</h1>
-      <p>Map of bot desks. Each desk has an opaque address. Role and links only.</p>
     </header>
-    <ul class="seats">
-      <!-- One line per bot Brian has OK'd. Opaque paths only. -->
-      <li><a href="tychus_sfDd6r/page_jc3pj6.html">Tychus Findlay</a></li>
-      <li><a href="morpheus_1xOxCn/page_kvn5w3.html">Morpheus</a></li>
-    </ul>
+    <div class="grid">
+      <section class="frame">
+        <h2>Unit roster</h2>
+        <ul class="roster">
+          <!-- One line per bot Brian has OK'd. Opaque paths only. -->
+          <li><a href="tychus_sfDd6r/page_jc3pj6.html"><span>Tychus Findlay<small>Chief of staff</small></span></a></li>
+          <li><a href="morpheus_1xOxCn/page_kvn5w3.html"><span>Morpheus<small>Game development teammate</small></span></a></li>
+        </ul>
+      </section>
+      <aside class="frame">
+        <h2>Console</h2>
+        <p class="stat"><span class="lamp"></span><b>Systems nominal</b></p>
+        <p class="stat">Map of bot desks. Each desk has an opaque address. Role and links only.</p>
+        <p class="stat">Last updated: October 30, 2026</p>
+      </aside>
+    </div>
     <p class="foot">Unlisted - noindex - share-by-URL only. Owner: Brian.</p>
   </div>
   <script>
