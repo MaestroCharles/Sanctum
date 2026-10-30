@@ -110,6 +110,14 @@ h2 { margin: 0 0 10px; font-size: 0.95rem; letter-spacing: 0.14em; text-transfor
 .roster a:hover, .roster a:focus { border-color: var(--cyan); box-shadow: 0 0 14px rgba(111,230,242,0.35); }
 .stat { margin: 0 0 10px; color: var(--muted); font-size: 0.92rem; }
 .stat b { color: var(--text); font-weight: 600; }
+/* Projects entry in the Console panel: a link, not a list (the roster keeps the only list). */
+.projects-link { display: flex; align-items: center; gap: 12px; min-height: 48px; margin: 4px 0 12px; padding: 6px 12px;
+  text-decoration: none; color: var(--text); font-family: "Orbitron", "Eurostile", ui-monospace, monospace;
+  font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+  background: linear-gradient(90deg, rgba(255,173,69,0.22), rgba(12,15,19,0.78)); border: 1px solid rgba(255,173,69,0.45); border-radius: 2px; }
+.projects-link::before { content: "BP"; flex: 0 0 34px; height: 34px; display: grid; place-items: center; font-size: 0.78rem; font-weight: 800;
+  color: #111; background: var(--amber); clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px); }
+.projects-link:hover, .projects-link:focus { border-color: var(--amber); box-shadow: 0 0 14px rgba(255,173,69,0.35); }
 .foot { display: inline-block; margin-top: 4px; padding: 4px 10px; font-size: 0.82em; color: var(--muted); background: rgba(10,13,17,0.78); border-radius: 2px; }
 @media (max-width: 560px) { .wrap { padding-top: 22vh; } .console h1 { font-size: 1.5rem; } .frame { padding: 18px 16px; } }
 </style>
@@ -142,6 +150,7 @@ h2 { margin: 0 0 10px; font-size: 0.95rem; letter-spacing: 0.14em; text-transfor
         <h2>Console</h2>
         <p class="stat"><span class="lamp"></span><b>Systems nominal</b></p>
         <p class="stat">Map of bot desks. Each desk has an opaque address. Role and links only.</p>
+        <a class="projects-link" href="projects_tDYil9/page_RZAEI9.html">Brian's Projects</a>
         <p class="stat">Last updated: October 30, 2026</p>
       </aside>
     </div>
