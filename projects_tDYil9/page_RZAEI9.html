@@ -15,7 +15,7 @@
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- No tracking code. No outside scripts, fonts or images. -->
-<!-- Theme: matches the hub's Terran command console. Static darkened poster (no video) to stay light on phones. -->
+<!-- Theme: matches the hub's Terran command console. Static workshop art (no video) to stay light on phones. -->
 <style>
 /* Self-hosted SIL OFL fonts shared with the hub (license: ../hubassets_KA8vXS/ofl_QanxJl.txt). */
 @font-face { font-family: "Orbitron"; src: url("../hubassets_KA8vXS/font_48kWb3.woff2") format("woff2"); font-weight: 400 900; font-display: swap; }
@@ -25,19 +25,34 @@
   --steel1: rgba(52,60,70,0.94); --steel2: rgba(16,20,25,0.96); --edge: #5e6b78;
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; background-color: #0b0e12; }
 body {
   margin: 0; min-height: 100vh; color: var(--text);
-  background-color: #0b0e12;
-  background-image:
-    linear-gradient(180deg, rgba(8,11,15,0.55) 0%, rgba(8,11,15,0.78) 45%, rgba(8,11,15,0.92) 100%),
-    url('../hubassets_KA8vXS/poster_MKGQM0.jpg');
-  background-size: cover; background-position: 74% 0%; background-repeat: no-repeat; background-attachment: fixed;
+  background: transparent;
   font-family: "Exo 2", "Segoe UI", system-ui, sans-serif; font-size: 16.5px; line-height: 1.5;
 }
 body::before {
   content: ""; position: fixed; left: 0; right: 0; top: 0; height: 8px; z-index: 5;
   background: repeating-linear-gradient(135deg, var(--amber) 0 14px, #111 14px 28px); opacity: 0.85;
+}
+/* Background art: original mech-workshop scene, robot on a crate lower right.
+   A position:fixed layer (not background-attachment: fixed) so iOS Safari renders it correctly. */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-color: #0b0e12;
+  background-image:
+    linear-gradient(90deg, rgba(8,11,15,0.62) 0%, rgba(8,11,15,0.5) 45%, rgba(8,11,15,0.1) 80%, rgba(8,11,15,0.05) 100%),
+    linear-gradient(180deg, rgba(8,11,15,0.3) 0%, rgba(8,11,15,0.1) 60%, rgba(8,11,15,0.3) 100%),
+    url('bg_7F74hd.jpg');
+  background-size: cover; background-position: 0% center; background-repeat: no-repeat;
+}
+@media (max-width: 819px) {
+  body::after {
+    background-image:
+      linear-gradient(180deg, rgba(8,11,15,0.5) 0%, rgba(8,11,15,0.38) 55%, rgba(8,11,15,0.22) 100%),
+      url('bg_7F74hd.jpg');
+    background-position: 78% center;
+  }
 }
 a { color: var(--amber); }
 a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
