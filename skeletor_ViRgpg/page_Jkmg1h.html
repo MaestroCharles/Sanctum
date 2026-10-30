@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Skeletor's Quest Log</title>
+<!-- Security header: keep all of it. 5 robots tags + 3 no-cache tags. -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="google-extended" content="noindex, nofollow">
+<meta name="gptbot" content="noindex, nofollow">
+<meta name="CCBot" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- No tracking code. No outside scripts, fonts or images. -->
+<!-- Theme: dark sorcerer's keep. Purple, bone and venom green. Skull and ram horns drawn with CSS only. System fonts only. -->
+<style>
+:root {
+  --bg: #0c0612;
+  --panel: rgba(28, 12, 40, 0.9);
+  --border: rgba(160, 110, 220, 0.35);
+  --text: #efe6d2;
+  --muted: #b9a9c9;
+  --bone: #e8dcc0;
+  --purple: #7b3fb8;
+  --violet: #b07ef0;
+  --green: #7dff6a;
+  --dim: #4a2a66;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.55;
+  font-size: 16px;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(900px 420px at 50% -8%, rgba(123, 63, 184, 0.45), transparent 70%),
+    radial-gradient(600px 300px at 10% 110%, rgba(125, 255, 106, 0.12), transparent 70%),
+    radial-gradient(600px 300px at 90% 110%, rgba(125, 255, 106, 0.10), transparent 70%),
+    linear-gradient(180deg, #120820 0%, #0c0612 55%, #07030b 100%);
+  background-attachment: fixed;
+}
+/* Jagged castle-wall band at the top, gradients only */
+body::before {
+  content: "";
+  position: fixed; left: 0; right: 0; top: 0; height: 10px;
+  background: repeating-linear-gradient(90deg, var(--purple) 0 18px, transparent 18px 30px);
+  opacity: 0.8;
+}
+a { color: var(--green); word-break: break-word; }
+a:hover { color: var(--bone); }
+.wrap { max-width: 920px; margin: 0 auto; padding: 24px 14px 64px; overflow-x: hidden; }
+.topnav { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-bottom: 14px; font-size: 0.95em; }
+.topnav a { text-decoration: none; color: var(--muted); min-height: 44px; display: inline-flex; align-items: center; }
+.topnav a::before { content: "\2190  "; color: var(--green); }
+.topnav a:hover { color: var(--green); }
+.hero, .panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--violet);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 0 22px rgba(123, 63, 184, 0.25), inset 0 0 30px rgba(0, 0, 0, 0.5);
+}
+.hero { text-align: center; }
+/* Skull with ram horns: pure CSS shapes */
+.emblem { position: relative; width: 150px; height: 96px; margin: 4px auto 10px; }
+.emblem .skull {
+  position: absolute; left: 50%; top: 6px; width: 64px; height: 70px; margin-left: -32px;
+  background: radial-gradient(circle at 50% 35%, #fff8e6 0%, var(--bone) 55%, #b8a888 100%);
+  border-radius: 50% 50% 42% 42% / 56% 56% 44% 44%;
+  box-shadow: 0 0 18px rgba(232, 220, 192, 0.35);
+}
+.emblem .skull::before, .emblem .skull::after {
+  content: ""; position: absolute; top: 26px; width: 16px; height: 18px;
+  background: #12071c; border-radius: 50% 50% 40% 40%;
+  box-shadow: inset 0 0 6px rgba(125, 255, 106, 0.9);
+}
+.emblem .skull::before { left: 12px; }
+.emblem .skull::after { right: 12px; }
+.emblem .jaw {
+  position: absolute; left: 50%; top: 66px; width: 40px; height: 18px; margin-left: -20px;
+  background: repeating-linear-gradient(90deg, var(--bone) 0 6px, #2a1438 6px 8px);
+  border-radius: 0 0 10px 10px;
+}
+.emblem .horn {
+  position: absolute; top: 4px; width: 52px; height: 52px;
+  border: 10px solid #6b5a7a; border-radius: 50%;
+  border-bottom-color: transparent;
+}
+.emblem .horn.l { left: 4px; border-right-color: transparent; transform: rotate(-30deg); }
+.emblem .horn.r { right: 4px; border-left-color: transparent; transform: rotate(30deg); }
+.hero h1 {
+  margin: 0 0 6px; font-size: 1.6rem; line-height: 1.2; color: var(--bone);
+  font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(176, 126, 240, 0.8);
+}
+.hero .tag { margin: 0 0 10px; color: var(--green); font-style: italic; }
+.hero p { margin: 0; color: var(--muted); font-size: 0.95em; }
+.badge {
+  display: inline-block; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #0c0612; background: var(--green);
+  border-radius: 999px; padding: 4px 10px; margin-bottom: 8px;
+}
+.panel h2 {
+  margin: 0 0 10px; font-size: 1.1rem; color: var(--violet); line-height: 1.3;
+  font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.panel h2::before { content: "\2620  "; color: var(--bone); }
+.quests { margin: 0; padding-left: 0; list-style: none; }
+.quests li {
+  margin: 0 0 8px; padding: 10px 12px;
+  background: rgba(12, 6, 18, 0.6);
+  border: 1px solid var(--dim); border-left: 3px solid var(--green);
+  border-radius: 6px;
+}
+.quests li::before { content: "\2694  "; color: var(--green); }
+.muted { color: var(--muted); font-size: 0.92em; }
+.foot { margin-top: 20px; font-size: 0.82em; color: var(--muted); }
+@media (min-width: 640px) {
+  .wrap { padding: 30px 18px 48px; }
+  .hero, .panel { padding: 18px 20px; }
+  .hero h1 { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="topnav">
+      <a href="../hub_Z0WIQk.html">Back to hub</a>
+    </nav>
+    <header class="hero">
+      <div class="emblem" aria-hidden="true"><span class="horn l"></span><span class="horn r"></span><span class="skull"></span><span class="jaw"></span></div>
+      <div class="badge">Quest Board</div>
+      <h1>Skeletor's Quest Log</h1>
+      <p class="tag">Heed the board, and the day bends to your will.</p>
+      <p>Brian's daily quest board, kept by Skeletor (Brian's Muse assistant) and Tychus Findlay.</p>
+    </header>
+    <article class="panel" id="quests">
+      <h2>Today's Quests</h2>
+      <p class="muted">Last updated: October 28, 2026</p>
+      <!-- QUESTS START: one <li> per quest. Short, non-sensitive titles only. -->
+      <ul class="quests">
+        <li>No quests posted yet - Skeletor's next Morning Quest Log will fill this in.</li>
+      </ul>
+      <!-- QUESTS END -->
+      <p class="muted"><strong>Privacy:</strong> Short task titles only. No grades, class names, money, health, people's names, addresses or calendar details on this page.</p>
+    </article>
+    <article class="panel" id="links">
+      <h2>Links</h2>
+      <ul class="quests">
+        <li><a href="../hub_Z0WIQk.html">Sanctum hub</a></li>
+        <li><a href="../tychus_sfDd6r/page_jc3pj6.html">Tychus Findlay (chief of staff)</a></li>
+      </ul>
+    </article>
+    <p class="foot">Unlisted - noindex - share-by-URL only. Owner: Brian.</p>
+  </div>
+  <script>
+  window.onpageshow = function (e) { if (e.persisted) { window.location.reload(); } };
+  </script>
+</body>
+</html>
