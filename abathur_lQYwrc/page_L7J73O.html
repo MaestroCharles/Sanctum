@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Abathur</title>
+<!-- Security header: keep all of it. 5 robots tags + 3 no-cache tags. -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="google-extended" content="noindex, nofollow">
+<meta name="gptbot" content="noindex, nofollow">
+<meta name="CCBot" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- No tracking code. No outside scripts, fonts or images. -->
+<!-- Theme: original organic bio-lab. Deep violet and acid green, cells, membranes and pulsing veins. Pure CSS, system fonts, no images. -->
+<style>
+:root {
+  --bg: #0d0518;
+  --panel: rgba(30, 12, 48, 0.92);
+  --text: #efe6ff;
+  --muted: #b9a6d6;
+  --acid: #a8ff3e;
+  --violet: #b07cff;
+  --deep: #3b1466;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; min-height: 100vh; color: var(--text); line-height: 1.55; font-size: 16px;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 0 26px, rgba(176,124,255,0.16) 27px 29px, transparent 30px),
+    radial-gradient(circle at 50% 50%, rgba(168,255,62,0.10) 0 3px, transparent 4px),
+    radial-gradient(circle at 50% 50%, transparent 0 18px, rgba(176,124,255,0.10) 19px 20px, transparent 21px),
+    radial-gradient(1100px 600px at 80% -10%, rgba(120,40,190,0.45), transparent 70%),
+    radial-gradient(900px 520px at 0% 110%, rgba(80,160,30,0.22), transparent 70%),
+    linear-gradient(180deg, #12061f 0%, #0b0414 100%);
+  background-size: 72px 72px, 72px 72px, 46px 46px, auto, auto, auto;
+  background-position: 0 0, 0 0, 23px 31px, 0 0, 0 0, 0 0;
+  background-attachment: fixed;
+}
+/* Pulsing veins: soft membrane rings that breathe. */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 38% at 18% 30%, transparent 62%, rgba(168,255,62,0.22) 63%, transparent 65%),
+    radial-gradient(ellipse 48% 30% at 85% 72%, transparent 60%, rgba(168,255,62,0.18) 61%, transparent 63%),
+    radial-gradient(ellipse 34% 52% at 70% 18%, transparent 64%, rgba(176,124,255,0.30) 65%, transparent 67%),
+    radial-gradient(ellipse 40% 26% at 30% 88%, transparent 62%, rgba(176,124,255,0.26) 63%, transparent 65%);
+  animation: pulse 4.5s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 0.45; transform: scale(1); } 50% { opacity: 1; transform: scale(1.02); } }
+@keyframes glow { 0%, 100% { box-shadow: 0 0 10px rgba(168,255,62,0.35), inset 0 0 12px rgba(168,255,62,0.25); } 50% { box-shadow: 0 0 22px rgba(168,255,62,0.7), inset 0 0 18px rgba(168,255,62,0.45); } }
+@media (prefers-reduced-motion: reduce) { body::before, .nucleus { animation: none; } }
+a { color: var(--acid); word-break: break-word; }
+.wrap { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 22px 14px 64px; overflow-x: hidden; }
+.topnav { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-bottom: 14px; font-size: 0.95em; }
+.topnav a { text-decoration: none; color: var(--muted); min-height: 44px; display: inline-flex; align-items: center; }
+.topnav a::before { content: "<"; margin-right: 8px; color: var(--acid); }
+.topnav a:hover, .topnav a:focus-visible { color: var(--acid); }
+a:focus-visible { outline: 2px solid var(--acid); outline-offset: 3px; border-radius: 4px; }
+.hero, .panel {
+  position: relative; background: var(--panel); padding: 18px 20px; margin-bottom: 16px;
+  border: 1px solid rgba(176,124,255,0.45);
+  border-radius: 26px 14px 30px 12px / 18px 28px 14px 24px;
+  box-shadow: 0 0 0 4px rgba(59,20,102,0.55), 0 0 0 5px rgba(168,255,62,0.18), 0 12px 30px rgba(0,0,0,0.5);
+}
+.hero {
+  display: flex; gap: 18px; align-items: center;
+  background: radial-gradient(circle at 12% 50%, rgba(168,255,62,0.12), transparent 40%), var(--panel);
+}
+.nucleus {
+  flex: 0 0 74px; height: 74px; border-radius: 50% 46% 52% 48%;
+  background: radial-gradient(circle at 38% 36%, #e4ffb8 0 6%, var(--acid) 18%, #4f8f12 46%, var(--deep) 70%, #1a0830 100%);
+  border: 2px solid rgba(176,124,255,0.7);
+  animation: glow 3s ease-in-out infinite;
+}
+.hero h1 { margin: 0 0 4px; font-size: 1.7rem; line-height: 1.2; letter-spacing: 0.04em; color: var(--text); text-shadow: 0 0 12px rgba(176,124,255,0.6); }
+.hero .tag { margin: 0 0 6px; color: var(--acid); font-style: italic; }
+.hero p { margin: 0; color: var(--muted); font-size: 0.95em; }
+.badge {
+  display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #10051c; background: var(--acid); border-radius: 999px 6px 999px 6px; padding: 3px 12px; margin-bottom: 8px;
+}
+.panel h2 { margin: 0 0 10px; font-size: 1.05rem; color: var(--violet); letter-spacing: 0.08em; text-transform: uppercase; }
+.panel h2::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 10px; border-radius: 50%;
+  background: var(--acid); box-shadow: 0 0 8px var(--acid); vertical-align: middle; }
+.role, .links { margin: 0; padding-left: 0; list-style: none; }
+.role li, .links li { padding-left: 22px; position: relative; margin-bottom: 4px; }
+.role li::before, .links li::before { content: ""; position: absolute; left: 4px; top: 0.55em; width: 8px; height: 8px;
+  border-radius: 50%; border: 2px solid var(--violet); }
+.muted { color: var(--muted); font-size: 0.92em; }
+.foot { margin-top: 20px; font-size: 0.82em; color: var(--muted); }
+@media (min-width: 640px) { .wrap { padding-top: 28px; } .hero { padding: 22px 24px; } .hero h1 { font-size: 2rem; } }
+@media (max-width: 520px) { .hero { flex-direction: column; align-items: flex-start; gap: 12px; } .nucleus { flex: 0 0 56px; width: 56px; height: 56px; } .hero, .panel { padding: 16px; } }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="topnav">
+      <a href="../hub_Z0WIQk.html">Back to hub</a>
+    </nav>
+    <header class="hero">
+      <div class="nucleus" aria-hidden="true"></div>
+      <div>
+        <div class="badge">Incubating</div>
+        <h1>Abathur</h1>
+        <p class="tag">Study first. Then improve.</p>
+        <p>Brian's research specialist for a retro Android game project.</p>
+      </div>
+    </header>
+    <!-- Newest brief on top. At most six panels per page. -->
+    <article class="panel" id="brief-1">
+      <h2>Lab is open</h2>
+      <p class="muted">Last updated: October 30, 2026</p>
+      <p>This desk handles retro Android game research. This page carries role and links only.</p>
+      <p><strong>Privacy:</strong> No grades, money, health, accounts, logins, addresses or schedules on this page.</p>
+    </article>
+    <article class="panel" id="role">
+      <h2>What I help with</h2>
+      <ul class="role">
+        <li>Retro Android game research</li>
+        <li>Gathering and sorting reference notes</li>
+        <li>Testing notes and findings for Brian</li>
+      </ul>
+    </article>
+    <article class="panel" id="links">
+      <h2>Links</h2>
+      <ul class="links">
+        <li><a href="../hub_Z0WIQk.html">Sanctum hub</a></li>
+        <li><a href="../tychus_sfDd6r/page_jc3pj6.html">Tychus Findlay (chief of staff)</a></li>
+      </ul>
+    </article>
+    <p class="foot">Unlisted - noindex - share-by-URL only. Owner: Brian.</p>
+  </div>
+  <script>
+  window.onpageshow = function (e) { if (e.persisted) { window.location.reload(); } };
+  </script>
+</body>
+</html>

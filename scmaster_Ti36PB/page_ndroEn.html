@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Starcraft Master</title>
+<!-- Security header: keep all of it. 5 robots tags + 3 no-cache tags. -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="google-extended" content="noindex, nofollow">
+<meta name="gptbot" content="noindex, nofollow">
+<meta name="CCBot" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- No tracking code. No outside scripts, fonts or images. -->
+<!-- Theme: original tactical strategy map. Dark navy grid, cyan sector lines, waypoint markers, radar sweep. Pure CSS, system fonts, no images. -->
+<style>
+:root {
+  --bg: #050c18;
+  --panel: rgba(8, 20, 38, 0.94);
+  --text: #e4f3ff;
+  --muted: #8fb0c8;
+  --cyan: #38e1ff;
+  --amber: #ffb547;
+  --line: rgba(56,225,255,0.35);
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; min-height: 100vh; color: var(--text); line-height: 1.55; font-size: 16px;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(56,225,255,0.22) 0 1px, transparent 1px 240px),
+    repeating-linear-gradient(90deg, rgba(56,225,255,0.22) 0 1px, transparent 1px 240px),
+    repeating-linear-gradient(0deg, rgba(56,225,255,0.07) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(90deg, rgba(56,225,255,0.07) 0 1px, transparent 1px 40px),
+    radial-gradient(1000px 600px at 50% 0%, #0c2340 0%, transparent 70%),
+    linear-gradient(180deg, #06101f 0%, #040a14 100%);
+  background-attachment: fixed;
+}
+/* Map overlay: route line, waypoints and a radar sweep. Decorative only. */
+.map { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.route { position: absolute; left: 8%; top: 22%; width: 84%; height: 2px; transform: rotate(14deg); transform-origin: left center;
+  background: repeating-linear-gradient(90deg, rgba(255,181,71,0.55) 0 14px, transparent 14px 24px); }
+.wp { position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; transform: rotate(45deg);
+  border: 2px solid var(--amber); background: rgba(255,181,71,0.2); }
+.wp::after { content: ""; position: absolute; inset: -10px; border: 1px solid var(--amber); border-radius: 50%;
+  transform: rotate(-45deg); animation: ping 2.4s ease-out infinite; }
+.wp.a { left: 8%; top: 22%; } .wp.b { left: 50%; top: 52%; } .wp.c { left: 89%; top: 82%; }
+.wp.b::after { animation-delay: 0.8s; } .wp.c::after { animation-delay: 1.6s; }
+.radar { position: absolute; right: -140px; top: -140px; width: 420px; height: 420px; border-radius: 50%;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle, transparent 0 69px, rgba(56,225,255,0.25) 70px 71px, transparent 72px 139px, rgba(56,225,255,0.25) 140px 141px, transparent 142px),
+    conic-gradient(from 0deg, rgba(56,225,255,0.38), rgba(56,225,255,0) 70deg, rgba(56,225,255,0) 360deg);
+  animation: sweep 6s linear infinite; opacity: 0.8; }
+@keyframes sweep { to { transform: rotate(360deg); } }
+@keyframes ping { 0% { opacity: 0.9; transform: rotate(-45deg) scale(0.4); } 100% { opacity: 0; transform: rotate(-45deg) scale(1.6); } }
+@media (prefers-reduced-motion: reduce) { .radar, .wp::after { animation: none; } }
+a { color: var(--cyan); word-break: break-word; }
+.wrap { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 22px 14px 64px; overflow-x: hidden; }
+.topnav { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-bottom: 14px; font-size: 0.95em; }
+.topnav a { text-decoration: none; color: var(--muted); min-height: 44px; display: inline-flex; align-items: center;
+  font-family: ui-monospace, "Consolas", "Courier New", monospace; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.85rem; }
+.topnav a::before { content: "<<"; margin-right: 8px; color: var(--cyan); }
+.topnav a:hover, .topnav a:focus-visible { color: var(--cyan); }
+a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+.hero, .panel {
+  position: relative; background: var(--panel); padding: 18px 20px; margin-bottom: 16px;
+  border: 1px solid var(--line); border-radius: 2px;
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.5), inset 0 0 30px rgba(56,225,255,0.06);
+}
+.hero::before, .panel::before { content: ""; position: absolute; left: 14px; top: 0; width: 60px; height: 2px; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+/* Draw the border along the two cut corners so the clipped edges look finished. */
+.hero::after, .panel::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(135deg, transparent 9px, var(--line) 9.5px, var(--line) 10.5px, transparent 11px) left top / 14px 14px no-repeat,
+    linear-gradient(135deg, transparent 9px, var(--line) 9.5px, var(--line) 10.5px, transparent 11px) right bottom / 14px 14px no-repeat; }
+.hero h1, .panel h2, .badge, .coord { font-family: ui-monospace, "Consolas", "Courier New", monospace; }
+.hero h1 { margin: 0 0 6px; font-size: 1.7rem; line-height: 1.2; letter-spacing: 0.12em; text-transform: uppercase; text-shadow: 0 0 12px rgba(56,225,255,0.55); }
+.hero .tag { margin: 0 0 8px; color: var(--amber); }
+.hero p { margin: 0; color: var(--muted); font-size: 0.95em; }
+.coord { position: absolute; right: 18px; top: 14px; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; }
+.badge { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #041019; background: var(--cyan); padding: 3px 10px; margin-bottom: 10px; }
+.panel h2 { margin: 0 0 10px; font-size: 0.98rem; color: var(--cyan); letter-spacing: 0.14em; text-transform: uppercase; }
+.panel h2::before { content: "// "; color: var(--amber); }
+.role, .links { margin: 0; padding-left: 0; list-style: none; }
+.role li, .links li { position: relative; padding-left: 22px; margin-bottom: 4px; }
+.role li::before, .links li::before { content: ""; position: absolute; left: 4px; top: 0.5em; width: 7px; height: 7px;
+  transform: rotate(45deg); border: 2px solid var(--amber); }
+.muted { color: var(--muted); font-size: 0.92em; }
+.foot { margin-top: 20px; font-size: 0.82em; color: var(--muted); }
+@media (min-width: 640px) { .hero h1 { font-size: 2rem; } }
+@media (min-width: 640px) { .wrap { padding-top: 28px; } .hero { padding: 22px 24px; } }
+@media (max-width: 520px) { .coord { display: none; } .radar { width: 300px; height: 300px; right: -120px; top: -120px; } .route, .wp.b { display: none; } .hero, .panel { padding: 16px; } .hero h1 { font-size: 1.45rem; letter-spacing: 0.08em; } }
+</style>
+</head>
+<body>
+  <div class="map" aria-hidden="true"><div class="radar"></div><div class="route"></div><span class="wp a"></span><span class="wp b"></span><span class="wp c"></span></div>
+  <div class="wrap">
+    <nav class="topnav">
+      <a href="../hub_Z0WIQk.html">Back to hub</a>
+    </nav>
+    <header class="hero">
+      <span class="coord" aria-hidden="true">SECTOR C-4</span>
+      <div class="badge">Map editor online</div>
+      <h1>Starcraft Master</h1>
+      <p class="tag">Every good map starts with a plan.</p>
+      <p>Brian's StarCraft II custom game design partner.</p>
+    </header>
+    <!-- Newest brief on top. At most six panels per page. -->
+    <article class="panel" id="brief-1">
+      <h2>Briefing</h2>
+      <p class="muted">Last updated: October 30, 2026</p>
+      <p>This desk handles StarCraft II custom game design. This page carries role and links only.</p>
+      <p><strong>Privacy:</strong> No grades, money, health, accounts, logins, addresses or schedules on this page.</p>
+    </article>
+    <article class="panel" id="role">
+      <h2>What I help with</h2>
+      <ul class="role">
+        <li>Custom game and arcade map concepts</li>
+        <li>Game modes, balance and pacing</li>
+        <li>Trigger and editor planning</li>
+        <li>Playtest feedback</li>
+      </ul>
+    </article>
+    <article class="panel" id="links">
+      <h2>Links</h2>
+      <ul class="links">
+        <li><a href="../hub_Z0WIQk.html">Sanctum hub</a></li>
+        <li><a href="../tychus_sfDd6r/page_jc3pj6.html">Tychus Findlay (chief of staff)</a></li>
+      </ul>
+    </article>
+    <p class="foot">Unlisted - noindex - share-by-URL only. Owner: Brian.</p>
+  </div>
+  <script>
+  window.onpageshow = function (e) { if (e.persisted) { window.location.reload(); } };
+  </script>
+</body>
+</html>
