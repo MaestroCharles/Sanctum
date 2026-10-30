@@ -15,7 +15,7 @@
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- No tracking code. No outside scripts, fonts or images. -->
-<!-- Theme: matches the hub's Terran command console. Static workshop art (no video) to stay light on phones. -->
+<!-- Theme: matches the hub's Terran command console. Looping workshop video over a static poster image (fallback and reduced-motion). -->
 <style>
 /* Self-hosted SIL OFL fonts shared with the hub (license: ../hubassets_KA8vXS/ofl_QanxJl.txt). */
 @font-face { font-family: "Orbitron"; src: url("../hubassets_KA8vXS/font_48kWb3.woff2") format("woff2"); font-weight: 400 900; font-display: swap; }
@@ -36,22 +36,25 @@ body::before {
   background: repeating-linear-gradient(135deg, var(--amber) 0 14px, #111 14px 28px); opacity: 0.85;
 }
 /* Background art: original mech-workshop scene, robot on a crate lower right.
-   A position:fixed layer (not background-attachment: fixed) so iOS Safari renders it correctly. */
+   Layers (all position:fixed, not background-attachment: fixed, so iOS Safari renders them correctly):
+   html::before = static image (fallback, z -3), .bgvid = looping video (z -2), body::after = dark overlay (z -1). */
+html::before {
+  content: ""; position: fixed; inset: 0; z-index: -3; pointer-events: none;
+  background: #0b0e12 url('bg_7F74hd.jpg') 0% center / cover no-repeat;
+}
+.bgvid { position: fixed; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 0% center; z-index: -2; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .bgvid { display: none; } }
 body::after {
   content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background-color: #0b0e12;
   background-image:
     linear-gradient(90deg, rgba(8,11,15,0.62) 0%, rgba(8,11,15,0.5) 45%, rgba(8,11,15,0.1) 80%, rgba(8,11,15,0.05) 100%),
-    linear-gradient(180deg, rgba(8,11,15,0.3) 0%, rgba(8,11,15,0.1) 60%, rgba(8,11,15,0.3) 100%),
-    url('bg_7F74hd.jpg');
-  background-size: cover; background-position: 0% center; background-repeat: no-repeat;
+    linear-gradient(180deg, rgba(8,11,15,0.3) 0%, rgba(8,11,15,0.1) 60%, rgba(8,11,15,0.3) 100%);
 }
 @media (max-width: 819px) {
+  html::before { background-position: 78% center; }
+  .bgvid { object-position: 78% center; }
   body::after {
-    background-image:
-      linear-gradient(180deg, rgba(8,11,15,0.5) 0%, rgba(8,11,15,0.38) 55%, rgba(8,11,15,0.22) 100%),
-      url('bg_7F74hd.jpg');
-    background-position: 78% center;
+    background-image: linear-gradient(180deg, rgba(8,11,15,0.5) 0%, rgba(8,11,15,0.38) 55%, rgba(8,11,15,0.22) 100%);
   }
 }
 a { color: var(--amber); }
@@ -142,6 +145,7 @@ h1, h2, h3, .badge, .tag, .chip, .topnav a, .btn { font-family: "Orbitron", "Eur
 </style>
 </head>
 <body>
+  <video class="bgvid" autoplay muted loop playsinline preload="auto" poster="bg_7F74hd.jpg" aria-hidden="true"><source src="bg_WIB8PB.mp4" type="video/mp4"></video>
   <div class="wrap">
     <nav class="topnav"><a href="../hub_Z0WIQk.html">Back to hub</a></nav>
 
