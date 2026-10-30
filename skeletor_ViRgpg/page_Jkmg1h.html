@@ -46,12 +46,27 @@ body {
     linear-gradient(180deg, #120820 0%, #0c0612 55%, #07030b 100%);
   background-attachment: fixed;
 }
+/* Background: sorcerer-king poster still as the fallback (no video, or reduced motion). */
+body {
+  background-image: url('poster_vNBgFB.jpg'), linear-gradient(180deg, #120820 0%, #0c0612 55%, #07030b 100%);
+  background-size: cover; background-position: 70% 30%; background-repeat: no-repeat;
+}
+/* Animated background video, same pattern as the hub. */
+.bgvid { position: fixed; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 30%; z-index: -2; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .bgvid { display: none; } }
+/* Dark overlay, heavier on the left, so the quest text stays readable. */
+.shade {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(7, 3, 11, 0.88) 0%, rgba(7, 3, 11, 0.7) 35%, rgba(7, 3, 11, 0.35) 70%, rgba(7, 3, 11, 0.2) 100%),
+    linear-gradient(180deg, rgba(7, 3, 11, 0) 65%, rgba(7, 3, 11, 0.5) 100%);
+}
 /* Jagged castle-wall band at the top, gradients only */
 body::before {
   content: "";
   position: fixed; left: 0; right: 0; top: 0; height: 10px;
   background: repeating-linear-gradient(90deg, var(--purple) 0 18px, transparent 18px 30px);
-  opacity: 0.8;
+  opacity: 0.8; z-index: 5;
 }
 a { color: var(--green); word-break: break-word; }
 a:hover { color: var(--bone); }
@@ -135,6 +150,8 @@ a:hover { color: var(--bone); }
 </style>
 </head>
 <body>
+  <video class="bgvid" autoplay muted loop playsinline preload="auto" poster="poster_vNBgFB.jpg" aria-hidden="true"><source src="bg_qFbVDN.mp4" type="video/mp4"></video>
+  <div class="shade" aria-hidden="true"></div>
   <div class="wrap">
     <nav class="topnav">
       <a href="../hub_Z0WIQk.html">Back to hub</a>
@@ -148,7 +165,7 @@ a:hover { color: var(--bone); }
     </header>
     <article class="panel" id="quests">
       <h2>Today's Quests</h2>
-      <p class="muted">Last updated: October 28, 2026</p>
+      <p class="muted">Last updated: October 30, 2026</p>
       <!-- QUESTS START: one <li> per quest. Short, non-sensitive titles only. -->
       <ul class="quests">
         <li>No quests posted yet - Skeletor's next Morning Quest Log will fill this in.</li>
