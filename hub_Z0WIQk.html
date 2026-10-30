@@ -48,12 +48,13 @@ body::before {
   background: repeating-linear-gradient(135deg, var(--amber) 0 14px, #111 14px 28px); opacity: 0.85;
 }
 a { color: var(--amber); }
-/* Panel stack sits low so the spire and its cyan beam show above it. */
-.wrap { max-width: 1040px; margin: 0 auto; padding: 18vh 16px 48px; }
-@media (min-width: 820px) and (min-height: 560px) { .wrap { padding-top: 36vh; } }
+/* Panel stack sits low so the spire and its cyan beam show above it.
+   The gap scales with screen height (clamped) so all five roster rows fit on a laptop screen without scrolling. */
+.wrap { max-width: 1040px; margin: 0 auto; padding: 18vh 16px 24px; }
+@media (min-width: 820px) and (min-height: 560px) { .wrap { padding-top: clamp(120px, 23vh, 320px); } }
 h1, h2, .badge, .tag, .roster a { font-family: "Orbitron", "Eurostile", ui-monospace, monospace; }
 .frame {
-  position: relative; padding: 20px 22px; margin-bottom: 18px;
+  position: relative; padding: 16px 22px; margin-bottom: 14px;
   border: 1px solid var(--edge); border-left: 4px solid var(--amber); border-radius: 3px;
   -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
   background:
@@ -83,18 +84,19 @@ h1, h2, .badge, .tag, .roster a { font-family: "Orbitron", "Eurostile", ui-monos
   box-shadow: 0 0 8px var(--cyan); margin-right: 8px; vertical-align: middle; }
 .grid { display: grid; grid-template-columns: 1fr; gap: 0 18px; }
 @media (min-width: 820px) { .grid { grid-template-columns: 2fr 1fr; } }
-h2 { margin: 0 0 12px; font-size: 0.95rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber);
+h2 { margin: 0 0 10px; font-size: 0.95rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber);
   text-shadow: 0 0 8px rgba(255,173,69,0.35); }
 .roster { list-style: none; margin: 0; padding: 0; }
-.roster li { margin: 0 0 10px; }
+.roster li { margin: 0 0 7px; }
+.roster li:last-child { margin-bottom: 0; }
 .roster a {
-  display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 14px;
+  display: flex; align-items: center; gap: 14px; min-height: 52px; padding: 6px 12px;
   text-decoration: none; color: var(--text); font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase;
   background: linear-gradient(90deg, rgba(60,72,86,0.55), rgba(12,15,19,0.78));
   border: 1px solid rgba(111,230,242,0.22); border-radius: 2px;
 }
 .roster a::before {
-  content: ">>"; flex: 0 0 44px; height: 44px; display: grid; place-items: center;
+  content: ">>"; flex: 0 0 40px; height: 40px; display: grid; place-items: center;
   font-size: 0.85rem; font-weight: 800; color: #111; background: var(--cyan);
   clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
 }
